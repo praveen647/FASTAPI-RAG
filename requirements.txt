@@ -26,8 +26,6 @@ python-multipart
 passlib
 python-jose
 pydantic
-uvicorn
-pyngrok
 
 
 

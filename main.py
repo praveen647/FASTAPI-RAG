@@ -5,6 +5,11 @@ import pyrebase
 from urllib.parse import urldefrag
 import requests
 import re
+import smtplib
+import random
+import string
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from PIL import Image
 from io import BytesIO
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
@@ -113,6 +118,57 @@ except Exception as e:
 
 
 
+import smtplib
+import random
+import string
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+def generate_otp(length=6):
+    """Generate a random OTP of the given length."""
+    digits = string.digits
+    otp = ''.join(random.choices(digits, k=length))
+    return otp
+
+def send_otp_via_email(receiver_email, otp):
+    """Send the OTP to the specified email address."""
+    sender_email = "mimiraiteam@gmail.com"
+    sender_password = "mied nyvb wpyh auys"  # Use an app password if you're using Gmail with 2FA
+
+    # Set up the MIME
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    message['To'] = receiver_email
+    message['Subject'] = "Your OTP for Secure Access – Mimir AI"
+
+    # Email body
+    body = f"""Hello,
+
+We’ve received a request to authenticate your account with Mimir AI.
+
+Your One-Time Password (OTP) is: {otp}
+Please use this OTP to complete your login process. For your security, this code is valid for only 10 minutes and can be used once.
+
+If you did not initiate this request, please ignore this email or contact our support team immediately.
+
+Thank you for choosing Mimir AI!
+
+Best regards,  
+The Mimir AI Team """
+    message.attach(MIMEText(body, 'plain'))
+
+    # SMTP server configuration
+    try:
+        # Connect to the server and send the email
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()  # Start TLS (Transport Layer Security)
+        server.login(sender_email, sender_password)
+        server.send_message(message)
+        server.quit()
+
+        print(f"OTP has been sent to {receiver_email}")
+    except Exception as e:
+        print(f"Error: {e}")
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
@@ -174,6 +230,8 @@ async def get_current_active_user(current_user: UserInDB = Depends(get_current_u
 
     return current_user
 
+class OTPRequest(BaseModel):
+    email : str
 class FileRequest(BaseModel):
     id: str
     query: str
@@ -311,3 +369,9 @@ def generate_response(request: FileRequest, current_user: UserInDB = Depends(get
     result = qa_chain({"query":query})
     title, questions = generate_questions(result["result"])
     return {"title": title, "questions": questions, "response": result["result"]}
+
+@app.post("/otp_generator")
+def otp_gen(request:OTPRequest):
+    receiver_email = request.email
+    otp = generate_otp()
+    send_otp_via_email(receiver_email, otp)

@@ -27,7 +27,7 @@ import urllib
 import warnings
 from pathlib import Path as p
 from pprint import pprint
-
+import os
 import pandas as pd
 from langchain import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
@@ -38,9 +38,9 @@ from langchain.chains import RetrievalQA
 warnings.filterwarnings("ignore")
 
 
-SECRET_KEY = '83daa0256a2289b0fb23693bf1f6034d44396675749244721a2b20e896e11662'
+SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES =90
 
 class Token(BaseModel):
     access_token: str
@@ -79,17 +79,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-geminiAPI = 'AIzaSyAQXWNpCHehBMou_hb26CpVuwaOWLsVN1s'
-
+geminiAPI = os.getenv('GEMINI_API_KEY')
 config = {
-    "apiKey": "AIzaSyAXyeap4l3_gNoTFR4-YX3MJH8PE-9Qn1w",
-    "authDomain": "example-fastapi-f5a95.firebaseapp.com",
-    "databaseURL": "https://example-fastapi-f5a95-default-rtdb.firebaseio.com/",
-    "projectId": "example-fastapi-f5a95",
-    "storageBucket": "example-fastapi-f5a95.appspot.com",
-    "messagingSenderId": "1024331035169",
-    "appId": "1:1024331035169:web:42773da2833da4e5a92960",
-    "measurementId": "G-5MV233N64X"
+    "apiKey": os.getenv('FIREBASE_API'),
+    "authDomain": os.getenv('FIREBASE_AUTH'),
+    "databaseURL": os.getenv('DB_URL'),
+    "projectId": os.getenv('FIREBASE_ID'),
+    "storageBucket": os.getenv('STORAGE_BUCKET'),
+    "messagingSenderId": os.getenv('MESSAGING_ID'),
+    "appId": os.getenv('APP_ID'),
+    "measurementId": os.getenv('MEASUREMENT_ID')
 }
 
 from langchain_google_genai import GoogleGenerativeAIEmbeddings

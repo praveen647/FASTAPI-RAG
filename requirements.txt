@@ -25,6 +25,5 @@ python-multipart
 passlib
 python-jose
 pydantic
-email
 
 

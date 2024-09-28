@@ -5,11 +5,6 @@ import pyrebase
 from urllib.parse import urldefrag
 import requests
 import re
-import smtplib
-import random
-import string
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from PIL import Image
 from io import BytesIO
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
@@ -20,9 +15,6 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from threading import Thread

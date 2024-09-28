@@ -20,7 +20,6 @@ pandas
 jupyter_ai
 google-generativeai
 pyrebase4
-firebase-admin
 bcrypt
 python-multipart
 passlib

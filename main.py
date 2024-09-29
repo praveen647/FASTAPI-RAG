@@ -1,5 +1,4 @@
 from typing import Optional
-from langchain_google_genai import ChatGoogleGenerativeAI
 from fastapi import FastAPI, HTTPException
 import pyrebase
 from urllib.parse import urldefrag
@@ -16,8 +15,6 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 import os
 from fastapi.middleware.cors import CORSMiddleware
-from threading import Thread
-import nest_asyncio
 from langchain_google_genai import ChatGoogleGenerativeAI
 import urllib
 import warnings

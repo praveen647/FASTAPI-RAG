@@ -3,7 +3,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from fastapi import FastAPI, HTTPException
 import pyrebase
 from urllib.parse import urldefrag
-import requests
 import re
 from PIL import Image
 from io import BytesIO

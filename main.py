@@ -31,7 +31,7 @@ from langchain.chains import RetrievalQA
 warnings.filterwarnings("ignore")
 
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY') #use a 32bit secret key
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES =90
 
@@ -72,7 +72,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-geminiAPI = os.getenv('GEMINI_API_KEY')
+geminiAPI = os.getenv('GEMINI_API_KEY') #gemini's api token
+#firebase config
 config = {
     "apiKey": os.getenv('FIREBASE_API'),
     "authDomain": os.getenv('FIREBASE_AUTH'),
@@ -121,7 +122,7 @@ def generate_otp(length=6):
 def send_otp_via_email(receiver_email, otp):
     """Send the OTP to the specified email address."""
     sender_email = "mimiraiteam@gmail.com"
-    sender_password = "mied nyvb wpyh auys"  # Use an app password if you're using Gmail with 2FA
+    sender_password = ""  # Use an app password if you're using Gmail with 2FA
 
     # Set up the MIME
     message = MIMEMultipart()

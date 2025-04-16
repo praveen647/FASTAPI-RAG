@@ -339,7 +339,7 @@ def query_parser(query):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World from Mugundhan"}
+    return {"message": "Base URL"}
 
 @app.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
